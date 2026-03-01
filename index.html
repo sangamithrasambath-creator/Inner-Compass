@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inner Compass</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated Sky Background -->
+  <div class="sky">
+    <div class="stars"></div>
+    <div class="stars s2"></div>
+    <div class="stars s3"></div>
+    <div class="nebula"></div>
+    <div class="glow-orbs">
+      <span class="orb o1"></span>
+      <span class="orb o2"></span>
+      <span class="orb o3"></span>
+    </div>
+  </div>
+
+  <main class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 120 120" width="44" height="44">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#7c5cff"/>
+                <stop offset="1" stop-color="#00d4ff"/>
+              </linearGradient>
+            </defs>
+            <circle cx="60" cy="60" r="48" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.25)" stroke-width="2"/>
+            <circle cx="60" cy="60" r="34" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+            <path d="M60 26 L74 60 L60 94 L46 60 Z" fill="url(#g1)" opacity=".95"/>
+            <circle cx="60" cy="60" r="5" fill="#fff" opacity=".9"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Inner Compass</h1>
+          <p class="tagline">Reveal your core trait + who you become under pressure.</p>
+        </div>
+      </div>
+
+      <div class="progressCard" id="progressCard">
+        <div class="meta">
+          <span id="qCount">0 / 20</span>
+          <span id="qType">Home</span>
+        </div>
+        <div class="bar"><div class="fill" id="progressFill"></div></div>
+      </div>
+    </header>
+
+    <!-- HOME SCREEN -->
+    <section class="panel home" id="homeScreen">
+      <div class="homeGrid">
+        <div class="homeLeft">
+          <h2 class="heroTitle">Find your <span class="shine">Dominant Trait</span> ✨</h2>
+          <p class="heroText">
+            Answer 20 questions. Choose what feels true.
+            <br/>
+            You’ll get:
+            <b>Dominant Trait</b> + <b>Under Pressure Trait</b> — with gentle tips.
+          </p>
+
+          <div class="ctaRow">
+            <button class="btn primary" id="startBtn">Start Assessment</button>
+            <button class="btn ghost" id="previewBtn">Preview Characters</button>
+          </div>
+        </div>
+
+        <div class="homeRight">
+          <div class="card3d">
+            <div class="card3dInner">
+              <h3>Meet your 8 Inner Traits</h3>
+              <div class="chips" id="characterChips"></div>
+              <div class="micro">
+                No judgement. Only clarity + growth.
+              </div>
+            </div>
+          </div>
+
+          <div class="floatingMascots" aria-hidden="true">
+            <div class="mascot m1">🪐</div>
+            <div class="mascot m2">✨</div>
+            <div class="mascot m3">🌙</div>
+            <div class="mascot m4">🧭</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ SCREEN -->
+    <section class="panel quiz hidden" id="quizScreen">
+      <div class="questionCard">
+        <div class="qTop">
+          <h2 class="question" id="questionText"></h2>
+          <p class="qHint" id="questionHint"></p>
+        </div>
+
+        <div class="options" id="options"></div>
+
+        <div class="nav">
+          <button class="btn ghost" id="backBtn" type="button">Back</button>
+          <button class="btn primary" id="nextBtn" type="button" disabled>Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section class="panel result hidden" id="resultScreen">
+      <div class="resultCard">
+        <h2 class="resultTitle">Your Inner Compass Result</h2>
+
+        <div class="resultSummary">
+          <div class="stat">
+            <div class="label">Your dominant trait</div>
+            <div class="value" id="dominantTrait"></div>
+          </div>
+          <div class="stat">
+            <div class="label">Under pressure you are</div>
+            <div class="value" id="pressureTrait"></div>
+          </div>
+        </div>
+
+        <div class="resultGrid">
+          <div class="box">
+            <h3>What it means</h3>
+            <div class="meaningBlock">
+              <div class="subhead">Dominant</div>
+              <p id="dominantMeaning"></p>
+            </div>
+            <div class="meaningBlock">
+              <div class="subhead">Under Pressure</div>
+              <p id="pressureMeaning"></p>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3 id="tipsTitle">Tips</h3>
+            <ol id="tipsList" class="tips"></ol>
+          </div>
+        </div>
+
+        <div class="nav">
+          <button class="btn ghost" id="restartBtn" type="button">Restart</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Inner Compass ✨</span>
+    </footer>
+  </main>
+
+  <!-- CHARACTER PREVIEW MODAL -->
+  <div class="modal hidden" id="previewModal">
+    <div class="modalBackdrop" id="modalBackdrop"></div>
+    <div class="modalCard" role="dialog" aria-modal="true" aria-label="Character Preview">
+      <div class="modalTop">
+        <h3>Preview Characters</h3>
+        <button class="closeBtn" id="closeModalBtn" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modalTalk">
+        <div class="mascotFace">🧠</div>
+        <div class="talkBubble" id="modalTalk">These are your 8 inner traits.</div>
+      </div>
+
+      <div class="charGrid" id="charGrid"></div>
+    </div>
+  </div>
+
+  <!-- POP-IN CARTOON MESSAGE (NOT ALWAYS VISIBLE) -->
+  <div class="guideCharacter" id="guideCharacter" aria-hidden="true">
+    <div class="guideAvatar" id="guideAvatar">🧒</div>
+    <div class="guideSpeech" id="guideSpeech"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
